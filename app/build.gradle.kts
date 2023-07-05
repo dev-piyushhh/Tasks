@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    id("com.google.devtools.ksp")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,10 +31,6 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -47,6 +44,10 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    compileOptions{
+        sourceCompatibility(JavaVersion.VERSION_17)
+        targetCompatibility(JavaVersion.VERSION_17)
     }
 }
 
@@ -73,13 +74,13 @@ dependencies {
 
     //Dagger - Hilt
     implementation (libs.hilt.android)
-    ksp (libs.hilt.android.compiler)
+    kapt (libs.hilt.android.compiler)
     implementation (libs.androidx.hilt.lifecycle.viewmodel)
-    ksp (libs.androidx.hilt.compiler)
+    kapt (libs.androidx.hilt.compiler)
 
     // Room
     implementation (libs.androidx.room.runtime)
-    ksp (libs.androidx.room.compiler)
+    kapt (libs.androidx.room.compiler)
 
     // Kotlin Extensions and Coroutines support for Room
     implementation (libs.androidx.room.ktx)
